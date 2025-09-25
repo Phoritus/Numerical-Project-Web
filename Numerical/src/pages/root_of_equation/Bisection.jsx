@@ -1,22 +1,24 @@
 import React, { useRef, useState } from 'react'
 import NavbarMain from '../../components/Navbar'
-import { InputNumber } from 'antd'
+import { InputNumber, Input } from 'antd'
+
 
 const Bisection = () => {
   const [xl, setXl] = useState(null)
   const [xr, setXr] = useState(null)
   const [tolerance, setTolerance] = useState(null)
-  const [equation, setEquation] = useState(null)
+  const [equation, setEquation] = useState('')
   const lastParamsRef = useRef(null)
 
   const handleCalculate = () => {
     // Just capture current values into a variable (no input changes)
     const params = {
-      xl: typeof xl === 'number' ? xl : Number(xl),
-      xr: typeof xr === 'number' ? xr : Number(xr),
-      tolerance: typeof tolerance === 'number' ? tolerance : Number(tolerance),
-      equation: typeof equation === 'string' ? equation : String(equation),
+      xl: xl == null ? null : Number(xl),
+      xr: xr == null ? null : Number(xr),
+      tolerance: tolerance == null ? null : Number(tolerance),
+      equation: equation.trim(), // keep raw string for parser
     }
+
     lastParamsRef.current = params
     console.log('Bisection params:', params)
     // TODO: call your solver with params and keep inputs untouched
@@ -70,27 +72,28 @@ const Bisection = () => {
 
               <div className='flex flex-col gap-1'>
                 <label className='text-sm text-blue-200'>Equation f(x)</label>
-                <InputNumber
-                  rootClassName='tw-input-number'
+                <Input
                   style={{ width: '100%' }}
-                  placeholder='3x - 19'
+                  placeholder='e.g. 54x-15'
                   value={equation}
-                  onChange={setEquation}
-                  changeOnWheel
+                  onChange={(e) => setEquation(e.target.value)}
                 />
               </div>
             </div>
 
             <div className='mt-6 flex justify-center'>
               <button
-                type='button'
-                
+                type='button'                
                 onClick={handleCalculate}
                 className='bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer'
               >
                 Calculate
               </button>
             </div>
+            <div>
+              
+            </div>
+
           </div>
         </div>
       </div>
