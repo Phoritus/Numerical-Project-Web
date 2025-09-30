@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import NavbarMain from '../../components/Navbar'
 import { InputNumber, Input } from 'antd'
-
+import PlotWithTailwind from '../../components/Graph'
 
 const Bisection = () => {
   const [xl, setXl] = useState(null)
@@ -91,7 +91,7 @@ const Bisection = () => {
               </button>
             </div>
             <div>
-              
+              <PlotWithTailwind dataX={[100, 50, 25, 12.5, 6.25, 3.125]} dataY={[1e+24, 244140624999998750000	, 59604644774134370	, 14551913972110.852, 3551457422.800501, -388894.262012	]} />
             </div>
 
           </div>
