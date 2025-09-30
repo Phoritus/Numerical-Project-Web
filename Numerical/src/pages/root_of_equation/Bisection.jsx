@@ -1,16 +1,16 @@
 import React, { useRef, useState } from 'react'
 import NavbarMain from '../../components/Navbar'
 import { InputNumber, Input, Alert } from 'antd'
-import PlotWithTailwind from '../../components/Graph'
-import BisectionJS from '../../numerical/root_of_equation/Bisection.js';
-import DataTable from '../../components/DataTable.jsx';
-import FunctionRootPlot from '../../components/FunctionRootPlot.jsx';
+import BisectionJS from '../../numerical/root_of_equation/Bisection.js'
+import DataTable from '../../components/DataTable.jsx'
+import FunctionRootPlot from '../../components/FunctionRootPlot.jsx'
+import PlotWithTailwind from '../../components/Graph.jsx'
 
 const Bisection = () => {
   const [xl, setXl] = useState()
   const [xr, setXr] = useState()
   const [tolerance, setTolerance] = useState()
-  const [equation, setEquation] = useState()
+  const [equation, setEquation] = useState('')
   const lastParamsRef = useRef(null)
   const [result, setResult] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
@@ -21,7 +21,7 @@ const Bisection = () => {
       xl: xl == null ? null : Number(xl),
       xr: xr == null ? null : Number(xr),
       tolerance: tolerance == null ? null : Number(tolerance),
-      equation: equation.trim(),
+      equation: (equation || '').trim(),
     }
 
     lastParamsRef.current = params
@@ -70,6 +70,11 @@ const Bisection = () => {
           <h1 className='text-4xl font-bold mb-8 text-center'><span className='text-gradient'>Bisection</span> Method</h1>
 
           <div className='mx-auto max-w-4xl rounded-xl border border-blue-700/40 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm'>
+            {errorMsg && (
+              <div className='mb-4'>
+                <Alert type='error' message={errorMsg} showIcon />
+              </div>
+            )}
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               <div className='flex flex-col gap-1'>
                 <label className='text-sm text-blue-200'>X Start (xL)</label>
@@ -129,61 +134,53 @@ const Bisection = () => {
               </button>
             </div>
             <div>
-              
+
             </div>
 
-          {tableRows.length > 0 && (
-            <div className='mx-auto mt-10 max-w-4xl rounded-xl border border-blue-700/40 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm'>
-              <h2 className='text-2xl font-semibold mb-4'>Table</h2>
-              <DataTable
-                columns={bisectionColumns}
-                rows={tableRows}
-                getRowId={r => r.iteration}
-                dense
-                striped
-                maxHeight={600}
-                // Custom styling to mimic provided layout (smaller italic headers etc.)
-                sx={{
-                  '& thead th': {
-                    fontSize: 12,
-                    fontStyle: 'italic',
-                    color: '#94a3b8',
-                    background: 'transparent',
-                    borderBottom: '1px solid rgba(255,255,255,0.12)'
-                  },
-                  '& tbody td': {
-                    fontSize: 13,
-                    paddingTop: 0.75,
-                    paddingBottom: 0.75,
-                    borderBottom: '1px solid rgba(255,255,255,0.05)'
-                  },
-                  '& tbody tr:hover': {
-                    background: 'rgba(255,255,255,0.04)'
-                  },
-                }}
-              />
-            </div>
-          )}
+            {tableRows.length > 0 && (
+              <div className='mx-auto mt-10 max-w-4xl rounded-xl border border-blue-700/40 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm'>
+                <h2 className='text-2xl font-semibold mb-4'>Table</h2>
+                <DataTable
+                  columns={bisectionColumns}
+                  rows={tableRows}
+                  getRowId={r => r.iteration}
+                  dense
+                  striped
+                  maxHeight={600}
+                  // Custom styling to mimic provided layout (smaller italic headers etc.)
+                  sx={{
+                    '& thead th': {
+                      fontSize: 12,
+                      fontStyle: 'italic',
+                      color: '#94a3b8',
+                      background: 'transparent',
+                      borderBottom: '1px solid rgba(255,255,255,0.12)'
+                    },
+                    '& tbody td': {
+                      fontSize: 13,
+                      paddingTop: 0.75,
+                      paddingBottom: 0.75,
+                      borderBottom: '1px solid rgba(255,255,255,0.05)'
+                    },
+                    '& tbody tr:hover': {
+                      background: 'rgba(255,255,255,0.04)'
+                    },
+                  }}
+                />
+              </div>
+            )}
 
-          {/* Future: Graph and comparison with Newton */}
-          {result && (
-            <div className='mx-auto mt-10 max-w-4xl rounded-xl border border-blue-700/40 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm'>
-              <h2 className='text-2xl font-semibold mb-4'>Graph</h2>
-              <FunctionRootPlot
-                functionExpr={equation}
-                history={result.history}
-                method='bisection'
-                showIterations
-                showBrackets
-                height={420}
-                onPointClick={(p) => console.log('Clicked point', p)}
-              />
-            </div>
-          )}
+
+          </div>
         </div>
+        {/* Future: Graph and comparison with Newton */}
+        {result && (
+          <div className='mx-auto mt-10 max-w-4xl rounded-xl border border-blue-700/40 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm'>
+            <h2 className='text-2xl font-semibold mb-4'>Graph</h2>
+            <PlotWithTailwind dataX={result.history.map(p => p.xm)} dataY={result.history.map(p => p.fxm)} />
+          </div>
+        )}
       </div>
-    </div>
-  )
+    </div>)
 }
-
 export default Bisection
