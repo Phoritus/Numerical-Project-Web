@@ -20,6 +20,7 @@ const DropLinearSystem = () => {
 
   const routeMap = {
     cramer: '/linear-system/cramer',
+    
   }
   const enhancedRenderItem = createNavigatingRenderItem({ routeMap, useLink: true });
 
