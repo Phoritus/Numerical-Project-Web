@@ -25,19 +25,18 @@ export const Graphical = () => {
     try {
       const solver = new GraphicalJS(params.xl, params.xr, params.equation)
       const r = solver.calculate()
-      console.log(r)
       setResult(r)
     } catch (err) { setErrorMsg(err.message) }
   }
 
   const graphicalColumns = [
-  { id: 'iteration', label: 'Iteration' },
-  { id: 'xm', label: 'Xk', align: 'right', format: v => Number(v).toPrecision(8) },
-  { id: 'fxm', label: 'Yk', align: 'right', format: v => Number(v).toPrecision(6) },
-  { id: 'errorPercent', label: 'Error%', align: 'right', format: v => (v == null ? '-' : v.toFixed(7) + '%') },
+    { id: 'iteration', label: 'Iteration' },
+    { id: 'xm', label: 'Xk', align: 'right', format: v => Number(v).toPrecision(8) },
+    { id: 'fxm', label: 'Yk', align: 'right', format: v => Number(v).toPrecision(6) },
+    { id: 'errorPercent', label: 'Error%', align: 'right', format: v => (v == null ? '-' : v.toFixed(7) + '%') },
   ]
   const tableRows = result?.history ?? []
-  
+
   return (
     <div className='text-white'>
       <NavbarMain />
@@ -57,7 +56,7 @@ export const Graphical = () => {
                 <label className='text-sm text-blue-200'>X Start (xL)</label>
                 <InputNumber rootClassName='tw-input-number' style={{ width: '100%' }} placeholder='e.g. 0' value={xl} onChange={setXl} changeOnWheel />
               </div>
-              
+
               <div className='flex flex-col gap-1'>
                 <label className='text-sm text-blue-200'>X End (xR)</label>
                 <InputNumber rootClassName='tw-input-number' style={{ width: '100%' }} placeholder='e.g. 20' value={xr} onChange={setXr} changeOnWheel />
@@ -75,7 +74,7 @@ export const Graphical = () => {
               </button>
             </div>
 
-            {result && (<div className='mt-6 text-sm text-blue-200'> <p className='text-xl'> Root : <span className='font-semibold text-white text-[19px]'>{result.root.toFixed(5)}</span> </p> <p className='text-xl'> Iterations: <span className='font-semibold text-white text-[19px]'>{result.iterations}</span> </p> <p className='text-xl'> Converged: <span className='font-semibold text-white text-[19px]'>{result.converged ? 'Yes✅' : 'No❌'}</span> </p> </div>)}
+            {result && (<div className='mt-6 text-sm text-blue-200'> <p className='text-xl'> Root : <span className='font-semibold text-white text-[19px]'>{result.root.toFixed(8)}</span> </p> <p className='text-xl'> Iterations: <span className='font-semibold text-white text-[19px]'>{result.iterations}</span> </p> </div>)}
           </div>
         </div>
 
@@ -84,33 +83,33 @@ export const Graphical = () => {
                 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm min-h-[400px]'>
           <h2 className='text-2xl font-semibold mb-4'>Graph</h2>
           <PlotWithTailwind
-              dataX={result?.history.map(p => p.xm)}
-              dataY={result?.history.map(p => p.fxm)}
-              graphName='Graphical Method Convergence'
-            />
+            dataX={result?.history.map(p => p.xm)}
+            dataY={result?.history.map(p => p.fxm)}
+            graphName='Graphical Method Convergence'
+          />
         </div>
 
-        {/*Table Section */}
+        {/* Table Section */}
         <div className='mx-auto mt-10 max-w-6xl rounded-xl border border-blue-700/40 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm'>
-                  <h2 className='text-2xl font-semibold mb-4'>Table</h2>
-                  <DataTable
-                    columns={graphicalColumns}
-                    rows={tableRows}
-                    getRowId={r => r.iteration}
-                    dense
-                    striped
-                    maxHeight={750}
-                    sx={{
-                      '& thead th': { fontSize: 12, fontStyle: 'italic', color: '#94a3b8', background: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.12)' },
-                      '& tbody td': { fontSize: 13, paddingTop: 0.75, paddingBottom: 0.75, borderBottom: '1px solid rgba(255,255,255,0.05)' },
-                      '& tbody tr:hover': { background: 'rgba(255,255,255,0.04)' },
-                      '& .MuiTable-root': { minWidth: 1000 }
-                    }}
-                  />
-                </div>
+          <h2 className='text-2xl font-semibold mb-4'>Table</h2>
+          <DataTable
+            columns={graphicalColumns}
+            rows={tableRows}
+            getRowId={r => r.iteration}
+            dense
+            striped
+            maxHeight={750}
+            sx={{
+              '& thead th': { fontSize: 12, fontStyle: 'italic', color: '#94a3b8', background: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.12)' },
+              '& tbody td': { fontSize: 13, paddingTop: 0.75, paddingBottom: 0.75, borderBottom: '1px solid rgba(255,255,255,0.05)' },
+              '& tbody tr:hover': { background: 'rgba(255,255,255,0.04)' },
+              '& .MuiTable-root': { minWidth: 1000 }
+            }}
+          />
+        </div>
 
       </div>
-    </div>  
+    </div>
   )
 }
 

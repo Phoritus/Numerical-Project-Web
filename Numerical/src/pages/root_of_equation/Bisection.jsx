@@ -77,7 +77,7 @@ const Bisection = () => {
               </button>
             </div>
 
-            {result && (<div className='mt-6 text-sm text-blue-200'> <p className='text-xl'> Root : <span className='font-semibold text-white text-[19px]'>{result.root.toFixed(10)}</span> </p> <p className='text-xl'> Iterations: <span className='font-semibold text-white text-[19px]'>{result.iterations}</span> </p> <p className='text-xl'> Converged: <span className='font-semibold text-white text-[19px]'>{result.converged ? 'Yes✅' : 'No❌'}</span> </p> </div>)}
+            {result && (<div className='mt-6 text-sm text-blue-200'> <p className='text-xl'> Root : <span className='font-semibold text-white text-[19px]'>{result.root.toFixed(10)}</span> </p> <p className='text-xl'> Iterations: <span className='font-semibold text-white text-[19px]'>{result.iterations}</span> </p></div>)}
           </div>
 
 

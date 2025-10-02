@@ -69,7 +69,6 @@ export default class BisectionJS {
       fxm: this.evaluate(xm),
       history,
       tolerance: this.tolerance,
-      converged: Math.abs(xr - xl) < this.tolerance,
     };
   }
 

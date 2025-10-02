@@ -6,55 +6,57 @@ export default class Graphical {
         this.start = start;
         this.end = end;
         this.equation = equation;
-        this.node = math.parse(this.equation);
+        this.node = math.parse(this.equation).compile();
+
     }
 
     f(x) {
-        return this.node.evaluate({ x });
+        return this.node.evaluate({ x: Number(x) });
     }
 
-    calculate(step = 0.001) {
-        const samples = [];
-        for (let x = this.start; x <= this.end; x = Number((x + step).toFixed(12))) {
-            samples.push({ x, y: this.f(x) });
-        }
+    calculate(step = 0.000001) {
+        let history = [];
+        let y = null, iteration = 0, errorPercent = null;
+        for (let x = this.start; x <= this.end; x++) {
+            y = this.f(x);
 
-        const history = [];
-        let error = null;
-        for (let i = 0; i < samples.length - 1; i++) {
-            const xm = (samples[i].x + samples[i + 1].x) / 2;
-            const fxm = this.f(xm);
-            if (i > 0) {
-                const prevXm = history[history.length - 1].xm;
-                if (xm !== 0) {
-                    error = Math.abs((xm - prevXm) / xm) * 100; // relative percent
-                } else {
-                    error = null;
+            if (x > 0) {
+                let prevY = this.f(x - 1);
+                if (prevY * y <= 0) {
+                    this.start = x - 1;
+                    this.end = x;
+                    break;
                 }
             }
-            history.push({ iteration: i, xm, fxm, errorPercent: error });
-
-            const y1 = samples[i].y;
-            const y2 = samples[i + 1].y;
-            const hasRoot = (y1 >= 0 && y2 <= 0) || (y1 <= 0 && y2 >= 0);
-            if (hasRoot) {
-                return {
-                    root: xm,
-                    iterations: i + 1,
-                    fxm,
-                    history,
-                    converged: true,
-                    method: 'graphical'
-                };
-            }
         }
+
+        let bestXm = null;
+        for (let x = this.start; x <= this.end; x += step) {
+            y = this.f(x);
+            if (iteration > 0) {
+                let prevY = this.f(x - step);
+                errorPercent = Math.abs((y - prevY) / y) * 100;
+            }
+
+            if (iteration >= 1000) break;
+
+            if (Math.abs(y) < 1e-6) {
+                bestXm = x;
+                break;
+            }
+            iteration++;
+            history.push({ iteration, xm: x, fxm: y, errorPercent });
+        }
+
         return {
-            root: null,
-            iterations: history.length,
-            fxm: null,
+            root: bestXm === null ? history.at(-1).xm : bestXm,
+            iterations: iteration,
+            fxm: this.f(bestXm),
             history,
-            converged: false,
-            message: 'Root not found in the given interval.'
         };
     }
 }
+
+// let test = new Graphical(0, 20, 'x ^ 12 - 1265256');
+// let result = test.calculate();
+// console.log(result.root, result.fxm);
