@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createNavigatingRenderItem } from '../dropdown/renderers';
 import DropdownBase from '../dropdown/DropdownBase';
@@ -18,8 +18,9 @@ const defaultItems = [
     key: 'root',
     label: 'Root of Equation',
     children: [
+      { key: 'graphical', label: 'Graphical Method' },
       { key: 'bisection', label: 'Bisection Method' },
-      { key: 'false-position', label: 'False Position Method' },
+      { key: 'false_position', label: 'False Position Method' },
       { key: 'one-point', label: 'One-Point Iteration Method' },
       { key: 'newton-raphson', label: 'Newton Raphson Method' },
       { key: 'secant', label: 'Secant Method' },
@@ -43,7 +44,12 @@ export default function Dropdown({ items = defaultItems, className = '', renderI
   const mergedClassName = `w-80 sm:w-96 ${className}`; // default wider width; user overrides by passing other w-*/min-w classes
 
   // Provide a default route mapping for built-in demo items; merge with user-provided routeMap
-  const defaultRouteMap = { bisection: '/root-of-equation/bisection' };
+  const defaultRouteMap = { 
+    graphical: '/root-of-equation/graphical',
+    bisection: '/root-of-equation/bisection',
+    false_position: '/root-of-equation/false-position',
+    
+  };
   const mergedRouteMap = useMemo(() => ({ ...defaultRouteMap, ...routeMap }), [routeMap]);
 
   // Reusable renderer that navigates on leaf click; also supports per-item 'to'

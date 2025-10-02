@@ -1,4 +1,7 @@
-import * as math from 'mathjs';
+import { create, all} from 'mathjs';
+const math = create(all, {
+    implicit: 'show'
+});
 
 export default class BisectionJS {
 
@@ -39,12 +42,11 @@ export default class BisectionJS {
     do {
       xm = (xl + xr) / 2;
       const fxm = this.evaluate(xm);
-      const intervalError = Math.abs((xr - xl) / xm);
       let errorPercent = null;
       if (prevXm !== null && xm !== 0) {
         errorPercent = Math.abs((xm - prevXm) / xm) * 100;
       }
-      history.push({ iteration, xl, xr, xm, fxm, intervalError, errorPercent });
+      history.push({ iteration, xm, fxm, errorPercent });
 
       if (fxl * fxm < 0) {
         xr = xm;
