@@ -6,10 +6,10 @@ import DataTable from "../../components/DataTable.jsx"
 import PlotWithTailwind from "../../components/Graph.jsx"
 
 const FalsePosition = () => {
-  const [xl, setXl] = useState(0)
-  const [xr, setXr] = useState(20)
-  const [tolerance, setTolerance] = useState(0.000001)
-  const [equation, setEquation] = useState("x ^ 12 - 1265256")
+  const [xl, setXl] = useState()
+  const [xr, setXr] = useState()
+  const [tolerance, setTolerance] = useState()
+  const [equation, setEquation] = useState("")
   const [result, setResult] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
 
@@ -28,7 +28,6 @@ const FalsePosition = () => {
       const solver = new FalsePositionJS(params.xl, params.xr, params.equation, params.tolerance)
       const r = solver.calculate()
       setResult(r)
-      console.log(r)
     } catch (err) { setErrorMsg(err.message) }
   }
 

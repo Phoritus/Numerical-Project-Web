@@ -31,16 +31,17 @@ export default class Graphical {
         }
 
         let bestXm = null;
+        let prevY = null;
         for (let x = this.start; x <= this.end; x += step) {
             y = this.f(x);
             if (iteration > 0) {
-                let prevY = this.f(x - step);
+                prevY = this.f(x - step);
                 errorPercent = Math.abs((y - prevY) / y) * 100;
             }
 
             if (iteration >= 1000) break;
 
-            if (Math.abs(y) < 1e-6) {
+            if (Math.abs(prevY - y) < 1e-6) {
                 bestXm = x;
                 break;
             }
@@ -57,6 +58,6 @@ export default class Graphical {
     }
 }
 
-// let test = new Graphical(0, 20, 'x ^ 12 - 1265256');
+// let test = new Graphical(3.22489, 4, 'x ^ 12 - 1265256');
 // let result = test.calculate();
 // console.log(result.root, result.fxm);

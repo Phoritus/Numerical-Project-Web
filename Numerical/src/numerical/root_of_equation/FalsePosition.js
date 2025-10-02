@@ -1,4 +1,4 @@
-import { create, all, re } from 'mathjs';
+import { create, all } from 'mathjs';
 const math = create(all, { implicit: 'show' });
 
 export default class FalsePosition {
@@ -55,6 +55,6 @@ export default class FalsePosition {
   }
 }
 
-let fp = new FalsePosition(0, 20, 'x ^ 12 - 1265256', 0.000001);
-let result = fp.calculate();
-console.log(result.xm, result.fxm, result.iteration, result.history);
+// let fp = new FalsePosition(0, 20, 'x ^ 12 - 1265256', 0.000001);
+// let result = fp.calculate();
+// console.log(result.xm, result.fxm, result.iteration, result.history);

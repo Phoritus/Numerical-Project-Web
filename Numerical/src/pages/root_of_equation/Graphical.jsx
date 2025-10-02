@@ -6,9 +6,9 @@ import DataTable from '../../components/DataTable.jsx'
 import PlotWithTailwind from '../../components/Graph.jsx'
 
 export const Graphical = () => {
-  const [xl, setXl] = useState(0)
-  const [xr, setXr] = useState(20)
-  const [equation, setEquation] = useState('x ^ 12 - 1265256')
+  const [xl, setXl] = useState()
+  const [xr, setXr] = useState()
+  const [equation, setEquation] = useState('')
   const [result, setResult] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
 
@@ -74,7 +74,7 @@ export const Graphical = () => {
               </button>
             </div>
 
-            {result && (<div className='mt-6 text-sm text-blue-200'> <p className='text-xl'> Root : <span className='font-semibold text-white text-[19px]'>{result.root.toFixed(8)}</span> </p> <p className='text-xl'> Iterations: <span className='font-semibold text-white text-[19px]'>{result.iterations}</span> </p> </div>)}
+            {result && (<div className='mt-6 text-sm text-blue-200'> <p className='text-xl'> Root : <span className='font-semibold text-white text-[19px]'>{result.root.toFixed(10)}</span> </p> <p className='text-xl'> Iterations: <span className='font-semibold text-white text-[19px]'>{result.iterations}</span> </p> </div>)}
           </div>
         </div>
 

@@ -21,7 +21,7 @@ const defaultItems = [
       { key: 'graphical', label: 'Graphical Method' },
       { key: 'bisection', label: 'Bisection Method' },
       { key: 'false_position', label: 'False Position Method' },
-      { key: 'one-point', label: 'One-Point Iteration Method' },
+      { key: 'one_point', label: 'One-Point Iteration Method' },
       { key: 'newton-raphson', label: 'Newton Raphson Method' },
       { key: 'secant', label: 'Secant Method' },
     ],
@@ -48,6 +48,7 @@ export default function Dropdown({ items = defaultItems, className = '', renderI
     graphical: '/root-of-equation/graphical',
     bisection: '/root-of-equation/bisection',
     false_position: '/root-of-equation/false-position',
+    one_point: '/root-of-equation/one-point',
     
   };
   const mergedRouteMap = useMemo(() => ({ ...defaultRouteMap, ...routeMap }), [routeMap]);
