@@ -6,6 +6,7 @@ import Graphical from './pages/root_of_equation/Graphical.jsx'
 import FalsePosition from './pages/root_of_equation/FalsePosition.jsx'
 import OnePoint from './pages/root_of_equation/OnePoint.jsx'
 import NewtonRaphson from './pages/root_of_equation/NewtonRaphson.jsx'
+import Secant from './pages/root_of_equation/Secant.jsx'
 import Cramer from './pages/linear_system/Cramer.jsx'
 
 
@@ -18,6 +19,7 @@ const App = () => {
       <Route path="/root-of-equation/false-position" element={<FalsePosition />} />
       <Route path="/root-of-equation/one-point" element={<OnePoint />} />
       <Route path="/root-of-equation/newton-raphson" element={<NewtonRaphson />} />
+      <Route path="/root-of-equation/secant" element={<Secant />} />
       <Route path="/linear-system/cramer" element={<Cramer />} />
     </Routes>
   )

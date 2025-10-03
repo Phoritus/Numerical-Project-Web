@@ -22,7 +22,7 @@ const PlotWithTailwind = ({ dataX, dataY, graphName }) => {
             xaxis: { title: "X Axis" },
             yaxis: { title: "Y Axis" },
             margin: { t: 50, l: 50, r: 30, b: 50 },
-            height: 400,
+            height: 500,
           }}
           style={{ width: "100%", height: "100%" }}
           config={

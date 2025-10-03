@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createNavigatingRenderItem } from '../dropdown/renderers';
 import DropdownBase from '../dropdown/DropdownBase';
+import { sec } from 'mathjs';
 
 // Utility: build a level map for keys so we can keep 1 open per level
 const buildLevelMap = (items, level = 1, map = {}) => {
@@ -50,7 +51,7 @@ export default function Dropdown({ items = defaultItems, className = '', renderI
     false_position: '/root-of-equation/false-position',
     one_point: '/root-of-equation/one-point',
     newton_raphson: '/root-of-equation/newton-raphson',
-    
+    secant: '/root-of-equation/secant',    
   };
   const mergedRouteMap = useMemo(() => ({ ...defaultRouteMap, ...routeMap }), [routeMap]);
 

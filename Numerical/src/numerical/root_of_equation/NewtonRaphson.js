@@ -45,10 +45,18 @@ export default class NewtonRaphson {
       if (iteration > 0) {
         errorPercent = Math.abs((x1 - x0) / x1) * 100;
       }
+      history.push({ 
+        iteration,
+        xCurrent: x0,
+        fxCurrent: this.f(x0),
+        slope: this.fPrime(x0),
+        nextX: x1,
+        fxNext: this.f(x1),
+        errorPercent
+       });
 
       x0 = x1;
       iteration++;
-      history.push({ iteration, x1, fx1: this.f(x1), errorPercent });
     } while (
       (errorPercent === null || errorPercent > this.tolerance) &&
       iteration < this.maxIterations
@@ -58,6 +66,6 @@ export default class NewtonRaphson {
   }
 }
 
-// // Example usage
+// Example usage
 // let test = new NewtonRaphson(1, 'x ^ 2 - 7', 1e-6);
 // console.log(test.calculate());
