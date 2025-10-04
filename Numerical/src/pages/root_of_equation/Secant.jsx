@@ -93,7 +93,8 @@ const Secant = () => {
               </div>
               <div className='flex flex-col gap-1'>
                 <label className='text-sm text-blue-200'>Equation</label>
-                <Input rootClassName='tw-input' placeholder='e.g. x^2 - 7' value={equation} onChange={setEquation} />
+                <Input rootClassName='tw-input' placeholder='e.g. x^2 - 7' value={equation} 
+                onChange={e => setEquation(e.target.value)} />
               </div>
             </div>
 
