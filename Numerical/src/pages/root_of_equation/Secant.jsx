@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { create, all } from 'mathjs';
+const math = create(all, {});
 import NavbarMain from '../../components/Navbar'
 import { InputNumber, Input, Alert } from 'antd'
 import SecantJS from '../../numerical/root_of_equation/Secant.js'
@@ -23,6 +25,46 @@ const Secant = () => {
       setErrorMsg(error.message)
     }
   }
+
+  let functionX = [];
+
+  if (result && result.history && result.history.length > 0) {
+    const xs = result.history.map(it => it.x0);
+    const minX = Math.min(...xs);
+    const maxX = Math.max(...xs);
+
+    const padding = Math.max(1, Math.min(3, 5 / (Math.abs(x0) + 1)));
+    const step = 0.05;
+    functionX = Array.from(
+      { length: Math.ceil(((maxX - minX) + 2 * padding) / step) + 1 },
+      (_, i) => (minX - padding) + i * step
+    );
+  } else {
+    const baseRange = 10 / (Math.log10(Math.abs(x0) + 2) + 1);
+    const range = Math.max(2, Math.min(baseRange, 10));
+    const step = 0.05;
+    functionX = Array.from(
+      { length: Math.ceil((2 * range) / step) },
+      (_, i) => (x0 - range) + i * step
+    )
+  }
+
+  let functionY = [];
+  try {
+    const node = math.parse(equation);
+    const compiled = node.compile();
+    functionY = functionX.map(x => compiled.evaluate({ x }));
+  } catch (err) {
+    functionY = functionX.map(_ => null);
+  }
+
+  const secantColumns = [
+    { id: 'iteration', label: 'Iteration' },
+    { id: 'x1', label: 'Xk', align: 'right', format: v => Number(v).toPrecision(8) },
+    { id: 'fx1', label: 'Yk', align: 'right', format: v => Number(v).toPrecision(6) },
+    { id: 'errorPercent', label: 'Error%', align: 'right', format: v => (v == null ? '-' : v.toFixed(7) + '%') },
+  ]
+  const tableRows = result?.history ?? []
 
   return (
     <div className='text-white'>
@@ -69,12 +111,32 @@ const Secant = () => {
                 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm min-h-[400px]'>
           <h2 className='text-2xl font-semibold mb-4'>Graph</h2>
           <PlotSecant
-            dataX={result?.history.map(p => p.x0) || []}
-            dataY={result?.history.map(p => p.x1) || []}
+            dataX={functionX}
+            dataY={functionY}
             graphName='Secant Method Convergence'
             resultX={result?.x0}
             resultY={result?.x1}
             secantData={result?.history || []}
+          />
+        </div>
+
+
+        { /* Table Section */ }
+        <div className='mx-auto mt-10 max-w-6xl rounded-xl border border-blue-700/40 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm'>
+          <h2 className='text-2xl font-semibold mb-4'>Table</h2>
+          <DataTable
+            columns={secantColumns}
+            rows={tableRows}
+            getRowId={r => r.iteration}
+            dense
+            striped
+            maxHeight={750}
+            sx={{
+              '& thead th': { fontSize: 12, fontStyle: 'italic', color: '#94a3b8', background: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.12)' },
+              '& tbody td': { fontSize: 13, paddingTop: 0.75, paddingBottom: 0.75, borderBottom: '1px solid rgba(255,255,255,0.05)' },
+              '& tbody tr:hover': { background: 'rgba(255,255,255,0.04)' },
+              '& .MuiTable-root': { minWidth: 1000 }
+            }}
           />
         </div>
       </div>

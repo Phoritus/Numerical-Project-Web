@@ -23,12 +23,14 @@ const PlotWithTailwind = ({ dataX, dataY, graphName }) => {
             yaxis: { title: "Y Axis" },
             margin: { t: 50, l: 50, r: 30, b: 50 },
             height: 500,
+            dragmode: 'pan'
           }}
           style={{ width: "100%", height: "100%" }}
           config={
             {
               responsive: true,
               scrollZoom: true,
+              modeBarButtonsToRemove: ['zoom2d']
             }
           }
         />

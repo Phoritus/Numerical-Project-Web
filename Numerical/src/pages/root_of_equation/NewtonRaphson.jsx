@@ -9,9 +9,9 @@ const math = create(all, {});
 
 const NewtonRaphson = () => {
 
-  const [x0, setx0] = useState(1)
-  const [tolerance, setTolerance] = useState(1e-6)
-  const [equation, setEquation] = useState("x ^ 2 - 7")
+  const [x0, setx0] = useState()
+  const [tolerance, setTolerance] = useState()
+  const [equation, setEquation] = useState("")
   const [result, setResult] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
 
@@ -68,7 +68,7 @@ const NewtonRaphson = () => {
     const compiled = node.compile();
     functionY = functionX.map(x => compiled.evaluate({ x }));
   } catch {
-    functionY = functionX.map(() => null);
+    functionY = functionX.map(_ => null);
   }
 
   const newTonRaphsonColumns = [
