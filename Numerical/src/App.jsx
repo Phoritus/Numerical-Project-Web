@@ -1,4 +1,4 @@
-import React from 'react'
+import './index.css'
 import { Routes, Route } from 'react-router-dom'
 import Homepages from './pages/Homepages.jsx'
 import Bisection from './pages/root_of_equation/Bisection.jsx'

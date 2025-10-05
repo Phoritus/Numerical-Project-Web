@@ -1,4 +1,4 @@
-import { create, all} from 'mathjs';
+import { create, all } from 'mathjs';
 const math = create(all, {
     implicit: 'show'
 });
@@ -77,4 +77,3 @@ export default class BisectionJS {
 // Example usage (commented out for production)
 // const test = new BisectionJS('43*x - 180', 0, 10, 1e-6);
 // console.log(test.calculate());
-
