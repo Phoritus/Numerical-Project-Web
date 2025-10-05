@@ -1,63 +1,73 @@
 import { create, all } from 'mathjs';
 const math = create(all, { implicit: 'show' });
+import NewtonRaphson from './NewtonRaphson.js';
 
 export default class Graphical {
-    constructor(start, end, equation) {
+    constructor(start, end, epsilon, equation) {
         this.start = start;
         this.end = end;
+        this.epsilon = epsilon;
         this.equation = equation;
         this.node = math.parse(this.equation).compile();
-
     }
 
     f(x) {
         return this.node.evaluate({ x: Number(x) });
     }
 
-    calculate(step = 0.000001) {
-        let history = [];
-        let y = null, iteration = 0, errorPercent = null;
-        for (let x = this.start; x <= this.end; x++) {
-            y = this.f(x);
+    calculate() {
+        const history = [];
+        let h = 1.0;
+        const reduction_factor = 10;
+        const exact_root = new NewtonRaphson(this.start, this.equation, this.epsilon).calculate().x1;
 
-            if (x > 0) {
-                let prevY = this.f(x - 1);
-                if (prevY * y <= 0) {
-                    this.start = x - 1;
-                    this.end = x;
-                    break;
-                }
+        let x = this.start;
+        let fx = this.f(x);
+        let bracket_left = this.start;
+        let bracket_right = this.end;
+
+        history.push({
+            iterations: 0,
+            x,
+            fx,
+            errorPercent: Math.abs((x - exact_root) / exact_root) * 100,
+        });
+
+        let iterations = 0;
+
+        while (h > this.epsilon && iterations < 1000) {
+            iterations++;
+            let nextX = x + h;
+            if (nextX > bracket_right) break;
+
+            let nextFX = this.f(nextX);
+            const errorPercent = Math.abs((nextX - exact_root) / exact_root) * 100;
+
+            history.push({ iterations, x: nextX, fx: nextFX, errorPercent });
+
+            // Check for sign change
+            if (fx * nextFX < 0) {
+                bracket_left = x;
+                bracket_right = nextX;
+                h /= reduction_factor;
+                fx = this.f(bracket_left);
+                x = bracket_left;
+                continue;
             }
+
+            x = nextX;
+            fx = nextFX;
+
+            if (bracket_right - bracket_left < this.epsilon) break;
         }
 
-        let bestXm = null;
-        let prevY = null;
-        for (let x = this.start; x <= this.end; x += step) {
-            y = this.f(x);
-            if (iteration > 0) {
-                prevY = this.f(x - step);
-                errorPercent = Math.abs((y - prevY) / y) * 100;
-            }
+        const root = (bracket_left + bracket_right) / 2;
+        const fxm = this.f(root);
 
-            if (iteration >= 1000) break;
-
-            if (Math.abs(prevY - y) < 1e-6) {
-                bestXm = x;
-                break;
-            }
-            iteration++;
-            history.push({ iteration, xm: x, fxm: y, errorPercent });
-        }
-
-        return {
-            root: bestXm === null ? history.at(-1).xm : bestXm,
-            iterations: iteration,
-            fxm: this.f(bestXm),
-            history,
-        };
+        return { root, fxm, iterations, history };
     }
 }
 
-// let test = new Graphical(3.22489, 4, 'x ^ 12 - 1265256');
+// let test = new Graphical(2, 4, 1e-6, 'x ^ 12 - 1265256');
 // let result = test.calculate();
-// console.log(result.root, result.fxm);
+// console.log(result.history)

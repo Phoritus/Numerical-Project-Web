@@ -8,6 +8,7 @@ import PlotWithTailwind from '../../components/Graph.jsx'
 export const Graphical = () => {
   const [xl, setXl] = useState()
   const [xr, setXr] = useState()
+  const [epsilon, setEpsilon] = useState()
   const [equation, setEquation] = useState('')
   const [result, setResult] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
@@ -16,23 +17,24 @@ export const Graphical = () => {
     const params = {
       xl: xl == null ? null : Number(xl),
       xr: xr == null ? null : Number(xr),
+      epsilon: epsilon == null ? null : Number(epsilon),
       equation: (equation || '').trim(),
     }
     setErrorMsg(null)
     setResult(null)
-    if (params.xl == null || params.xr == null || !params.equation) { setErrorMsg('Fill in all fields'); return }
+    if (params.xl == null || params.xr == null || !params.equation || params.epsilon == null) { setErrorMsg('Fill in all fields'); return }
     if (params.xl >= params.xr) { setErrorMsg('xl must be less than xr'); return }
     try {
-      const solver = new GraphicalJS(params.xl, params.xr, params.equation)
+      const solver = new GraphicalJS(params.xl, params.xr, params.epsilon, params.equation)
       const r = solver.calculate()
       setResult(r)
     } catch (err) { setErrorMsg(err.message) }
   }
 
   const graphicalColumns = [
-    { id: 'iteration', label: 'Iteration' },
-    { id: 'xm', label: 'Xk', align: 'right', format: v => Number(v).toPrecision(8) },
-    { id: 'fxm', label: 'Yk', align: 'right', format: v => Number(v).toPrecision(6) },
+    { id: 'iterations', label: 'Iterations' },
+    { id: 'x', label: 'Xk', align: 'right', format: v => Number(v).toPrecision(8) },
+    { id: 'fx', label: 'Yk', align: 'right', format: v => Number(v).toPrecision(6) },
     { id: 'errorPercent', label: 'Error%', align: 'right', format: v => (v == null ? '-' : v.toFixed(7) + '%') },
   ]
   const tableRows = result?.history ?? []
@@ -62,6 +64,11 @@ export const Graphical = () => {
                 <InputNumber rootClassName='tw-input-number' style={{ width: '100%' }} placeholder='e.g. 20' value={xr} onChange={setXr} changeOnWheel />
               </div>
 
+              <div className='flex flex-col gap-1'>
+                <label className='text-sm text-blue-200'>Tolerance</label>
+                <InputNumber rootClassName='tw-input-number' style={{ width: '100%' }} placeholder='e.g. 1e-6' value={epsilon} onChange={setEpsilon} changeOnWheel />
+              </div>
+
               <div className='flex flex-col gap-1 sm:col-span-3 lg:col-span-1'>
                 <label className='text-sm text-blue-200'>Equation</label>
                 <Input rootClassName='tw-input' style={{ width: '100%' }} placeholder='e.g. x ^ 12 - 1265256' value={equation} onChange={(e) => setEquation(e.target.value)} />
@@ -74,7 +81,7 @@ export const Graphical = () => {
               </button>
             </div>
 
-            {result && (<div className='mt-6 text-sm text-blue-200'> <p className='text-xl'> Root : <span className='font-semibold text-white text-[19px]'>{result.root.toFixed(10)}</span> </p> <p className='text-xl'> Iterations: <span className='font-semibold text-white text-[19px]'>{result.iterations}</span> </p> </div>)}
+            {result && (<div className='mt-6 text-sm text-blue-200'> <p className='text-xl'> Root : <span className='font-semibold text-white text-[19px]'>{result.root.toFixed(8)}</span> </p> <p className='text-xl'> Iterations: <span className='font-semibold text-white text-[19px]'>{result.iterations}</span> </p> </div>)}
           </div>
         </div>
 
@@ -83,8 +90,8 @@ export const Graphical = () => {
                 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm min-h-[400px]'>
           <h2 className='text-2xl font-semibold mb-4'>Graph</h2>
           <PlotWithTailwind
-            dataX={result?.history.map(p => p.xm)}
-            dataY={result?.history.map(p => p.fxm)}
+            dataX={result?.history.map(p => p.x)}
+            dataY={result?.history.map(p => p.fx)}
             graphName='Graphical Method Convergence'
           />
         </div>
