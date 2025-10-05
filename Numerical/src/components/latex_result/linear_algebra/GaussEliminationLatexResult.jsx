@@ -6,11 +6,11 @@ const matrixToAugmented = (M, V) => {
   const rows = M.map((row, i) => {
     const rowStr = row.map(val => val.toFixed(3)).join(' & ');
     return `${rowStr} & ${V[i].toFixed(3)}`;
-  }).join(' \\ ');
+  }).join(' \\\\ ');
   return `\\left[\\begin{array}{${'c'.repeat(M[0].length)}|c}${rows}\\end{array}\\right]`;
 }
 
-const GaussEliminationLatexResult = ({ solution }) => {
+const GuassEliminationLatexResult = ({ solution }) => {
   const headerRef = useRef(null);
   const stepsRefs = useRef([]);
   const enderRef = useRef(null);
@@ -20,6 +20,7 @@ const GaussEliminationLatexResult = ({ solution }) => {
   useEffect(() => {
     if (!solution) return;
 
+    // Header: Forward Elimination
     if (headerRef.current) {
       katex.render(
         `\\text{Forward Elimination}`,
@@ -28,6 +29,7 @@ const GaussEliminationLatexResult = ({ solution }) => {
       );
     }
 
+    // Forward elimination steps
     solution.steps.forEach((step, idx) => {
       if (stepsRefs.current[idx]) {
         const latex = `${matrixToAugmented(step.matrix, step.vector)} \\quad \\Rightarrow \\quad ${step.description}`;
@@ -39,6 +41,7 @@ const GaussEliminationLatexResult = ({ solution }) => {
       }
     });
 
+    // Header: Back Substitution
     if (enderRef.current) {
       katex.render(
         `\\text{Back Substitution}`,
@@ -47,6 +50,7 @@ const GaussEliminationLatexResult = ({ solution }) => {
       );
     }
 
+    // Back substitution steps
     if (solution.backSubSteps) {
       solution.backSubSteps.forEach((step, idx) => {
         if (backSubRefs.current[idx]) {
@@ -60,9 +64,11 @@ const GaussEliminationLatexResult = ({ solution }) => {
       });
     }
 
+    // Conclusion
     if (conclusionRef.current) {
       const variables = solution.solution.map((_, i) => `x_{${i + 1}}`).join(', ');
       const values = solution.solution.map(val => val.toFixed(6)).join(', ');
+
       katex.render(
         `\\therefore \\; (${variables}) = (${values})`,
         conclusionRef.current,
@@ -75,21 +81,36 @@ const GaussEliminationLatexResult = ({ solution }) => {
 
   return (
     <div className='space-y-6'>
+      {/* Forward Elimination */}
       <div ref={headerRef} className='text-xl font-semibold mb-4'/>
+      
       <div className='space-y-4'>
         {solution.steps.map((_, idx) => (
-          <div key={idx} ref={el => stepsRefs.current[idx] = el} className='my-3' />
+          <div 
+            key={idx}
+            ref={el => stepsRefs.current[idx] = el}
+            className='my-3'
+          />
         ))}
       </div>
+
+      {/* Back Substitution */}
       <div ref={enderRef} className='text-xl font-semibold mt-8 mb-4' />
+
       <div className='space-y-3'>
         {solution.backSubSteps && solution.backSubSteps.map((_, idx) => (
-          <div key={idx} ref={el => backSubRefs.current[idx] = el} className='my-2' />
+          <div 
+            key={idx}
+            ref={el => backSubRefs.current[idx] = el}
+            className='my-2'
+          />
         ))}
       </div>
+
+      {/* Final Answer */}
       <div ref={conclusionRef} className='mt-6 text-lg' />
     </div>
   );
 };
 
-export default GaussEliminationLatexResult;
+export default GuassEliminationLatexResult;
