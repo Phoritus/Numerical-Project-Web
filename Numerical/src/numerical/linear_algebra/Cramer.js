@@ -51,12 +51,12 @@ export default class Cramer {
   }
 }
 
-let testMatrixA = [
-  [-2, 3, 1],
-  [3, 4, -5],
-  [1, -2, 1]
-];
+// let testMatrixA = [
+//   [-2, 3, 1],
+//   [3, 4, -5],
+//   [1, -2, 1]
+// ];
 
-let testMatrixB = [9, 0, -4];
-let test = new Cramer(testMatrixA, testMatrixB);
-console.log(test.calculate());
+// let testMatrixB = [9, 0, -4];
+// let test = new Cramer(testMatrixA, testMatrixB);
+// console.log(test.calculate());

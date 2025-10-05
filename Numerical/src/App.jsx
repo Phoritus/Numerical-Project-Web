@@ -8,8 +8,8 @@ import OnePoint from './pages/root_of_equation/OnePoint.jsx'
 import NewtonRaphson from './pages/root_of_equation/NewtonRaphson.jsx'
 import Secant from './pages/root_of_equation/Secant.jsx'
 import Cramer from './pages/linear_system/Cramer.jsx'
-import GuassElimination from './pages/linear_system/GuassElimination.jsx'
-
+import GaussElimination from './pages/linear_system/GaussElimination.jsx'
+import GaussJordan from './pages/linear_system/GaussJordan.jsx'
 
 const App = () => {
   return (
@@ -22,7 +22,8 @@ const App = () => {
       <Route path="/root-of-equation/newton-raphson" element={<NewtonRaphson />} />
       <Route path="/root-of-equation/secant" element={<Secant />} />
       <Route path="/linear-system/cramer" element={<Cramer />} />
-      <Route path="/linear-system/guass-elimination" element={<GuassElimination />} />
+  <Route path="/linear-system/gauss-elimination" element={<GaussElimination />} />
+  <Route path="/linear-system/gauss-jordan" element={<GaussJordan />} />
     </Routes>
   )
 }

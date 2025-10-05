@@ -20,12 +20,11 @@ const DropLinearSystem = () => {
 
   const routeMap = {
     cramer: '/linear-system/cramer',
-    gaussian_elimination: '/linear-system/guass-elimination',
+    gaussian_elimination: '/linear-system/gauss-elimination', // corrected spelling
     gauss_jordan: '/linear-system/gauss-jordan',
     matrix_inversion: '/linear-system/matrix-inversion',
     lu_decomposition: '/linear-system/lu-decomposition',
     cholesky: '/linear-system/cholesky',
-    
   }
   const enhancedRenderItem = createNavigatingRenderItem({ routeMap, useLink: true });
 
