@@ -22,6 +22,7 @@ export default class OnePoint {
   calculate() {
     let x0 = this.x0, x1;
     let iteration = 0;
+    const iterationPath = [];
     const history = [];
     let errorPercent = null;
 
@@ -36,6 +37,10 @@ export default class OnePoint {
         errorPercent = Math.abs((x1 - x0) / x1) * 100;
       }
 
+      iterationPath.push( { x: x0, y: x0 } );
+      iterationPath.push( { x: x0, y: x1 } );
+      iterationPath.push( { x: x1, y: x1 } );
+
       history.push({ iteration, x1, fx1: this.f(x1), errorPercent });
 
       x0 = x1;
@@ -43,11 +48,11 @@ export default class OnePoint {
     } while ((errorPercent === null || errorPercent > this.tolerance) 
              && iteration < this.maxIterations);
 
-    return { history, x1, error: errorPercent, iteration };
+    return { history, x1, error: errorPercent, iteration, iterationPath };
   }
 }
 
 // // Example
 // let op = new OnePoint(0, "(7+x)/(x+1)");
 // let result = op.calculate();
-// console.log(result.x1);
+// console.log(result.iterationPath);

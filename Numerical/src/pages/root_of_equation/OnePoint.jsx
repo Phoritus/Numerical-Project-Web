@@ -3,7 +3,7 @@ import NavbarMain from '../../components/Navbar'
 import { InputNumber, Input, Alert } from "antd"
 import OnePointJS from '../../numerical/root_of_equation/OnePoint.js'
 import DataTable from '../../components/DataTable.jsx'
-import PlotWithTailwind from '../../components/Graph.jsx'
+import PlotOnePoint from "../../components/GraphOnepoint.jsx"
 
 const OnePoint = () => {
 
@@ -12,6 +12,8 @@ const OnePoint = () => {
   const [equation, setEquation] = useState("")
   const [result, setResult] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
+
+  
 
   const handleCalculate = () => {
     const params = {
@@ -61,7 +63,7 @@ const OnePoint = () => {
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-3'>
               <div className='flex flex-col gap-1'>
                 <label className='text-sm text-blue-200'>X Start (x0)</label>
-                <InputNumber rootClassName='tw-input-number' style={{ width: '100%' }} placeholder='e.g. 0' value={x0} onChange={setx0} changeOnWheel />
+                <InputNumber rootClassName='tw-input-number' style={{ width: '100%' }} placeholder='e.g. 0.001' value={x0} onChange={setx0} changeOnWheel />
               </div>
 
               <div className='flex flex-col gap-1'>
@@ -91,10 +93,9 @@ const OnePoint = () => {
         <div className='mx-auto mt-10 max-w-6xl rounded-xl border border-blue-700/40 
                 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm min-h-[400px]'>
           <h2 className='text-2xl font-semibold mb-4'>Graph</h2>
-          <PlotWithTailwind
-            dataX={result?.history.map(p => p.x1)}
-            dataY={result?.history.map(p => p.fx1)}
-            graphName='Graphical Method Convergence'
+          <PlotOnePoint
+            result={result}
+            equation={equation}
           />
         </div>
 
