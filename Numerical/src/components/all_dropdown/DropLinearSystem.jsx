@@ -9,10 +9,10 @@ const DropLinearSystem = () => {
       label: 'Linear System',
       children: [
         { key: 'cramer', label: "Cramer's Rule" },
-        { key: 'gaussian-elimination', label: 'Gaussian Elimination' },
-        { key: 'gauss-jordan', label: 'Gauss-Jordan Elimination' },
-        { key: 'matrix-inversion', label: 'Matrix Inversion Method' },
-        { key: 'lu-decomposition', label: 'LU Decomposition' },
+        { key: 'gaussian_elimination', label: 'Gaussian Elimination' },
+        { key: 'gauss_jordan', label: 'Gauss-Jordan Elimination' },
+        { key: 'matrix_inversion', label: 'Matrix Inversion Method' },
+        { key: 'lu_decomposition', label: 'LU Decomposition' },
         { key: 'cholesky', label: 'Cholesky Decomposition' },
       ]
     }
@@ -20,6 +20,11 @@ const DropLinearSystem = () => {
 
   const routeMap = {
     cramer: '/linear-system/cramer',
+    gaussian_elimination: '/linear-system/guass-elimination',
+    gauss_jordan: '/linear-system/gauss-jordan',
+    matrix_inversion: '/linear-system/matrix-inversion',
+    lu_decomposition: '/linear-system/lu-decomposition',
+    cholesky: '/linear-system/cholesky',
     
   }
   const enhancedRenderItem = createNavigatingRenderItem({ routeMap, useLink: true });
