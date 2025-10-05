@@ -1,4 +1,4 @@
-import { create, all, re } from "mathjs";
+import { create, all } from "mathjs";
 const math = create(all, { implicit: "show" });
 
 export default class OnePoint {
