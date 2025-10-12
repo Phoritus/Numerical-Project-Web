@@ -22,7 +22,6 @@ export default class OnePoint {
   calculate() {
     let x0 = this.x0, x1;
     let iteration = 0;
-    const iterationPath = [];
     const history = [];
     let errorPercent = null;
 
