@@ -4,7 +4,7 @@ import { InputNumber, Input, Alert } from 'antd'
 import GraphicalJS from '../../numerical/root_of_equation/Graphical.js'
 import DataTable from '../../components/DataTable.jsx'
 import PlotWithTailwind from '../../components/Graph.jsx'
-import { graphicalExample } from '../../numerical/examples/graphical_api.js'
+import { graphicalExample } from '../../numerical/examples/rootFinding.js'
 import { useExample } from '../../hooks/useExample.js'
 
 export const Graphical = () => {

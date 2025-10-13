@@ -32,7 +32,7 @@ app.use('/api/root-finding', require('./routes/rootFinding'));
 app.use('/api/linear-algebra', require('./routes/linearAlgebra'));
 
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use((err, res) => {
   console.error(err.stack);
   res.status(500).json({
     error: 'Something went wrong!',
@@ -41,7 +41,7 @@ app.use((err, req, res, next) => {
 });
 
 // 404 handler
-app.use((req, res) => {
+app.use((res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 

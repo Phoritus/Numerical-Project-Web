@@ -9,7 +9,16 @@ const linearAlgebraSchema = new mongoose.Schema({
   method: {
     type: String,
     required: true,
-    enum: ['cramer', 'gauss-elimination', 'gauss-jordan', 'matrix-inversion']
+    enum: [
+      'cramer',
+      'gauss-elimination',
+      'gauss-jordan',
+      'matrix-inversion',
+      'lu-decomposition',
+      'jacobi-iteration',
+      'gauss-seidel',
+      'conjugate-gradient'
+    ]
   },
   matrixSize: {
     type: Number,
@@ -24,6 +33,14 @@ const linearAlgebraSchema = new mongoose.Schema({
   vectorB: {
     type: [Number],
     required: true
+  },
+  // Optional fields for iterative methods
+  initialGuess: {
+    type: [Number],
+  },
+  tolerance: {
+    type: Number,
+    default: 1e-6
   }
 }, {
   timestamps: false,

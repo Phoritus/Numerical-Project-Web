@@ -4,6 +4,8 @@ import { InputNumber, Input, Alert } from "antd"
 import FalsePositionJS from "../../numerical/root_of_equation/FalsePosition.js"
 import DataTable from "../../components/DataTable.jsx"
 import PlotWithTailwind from "../../components/Graph.jsx"
+import { falsePositionExample } from "../../numerical/examples/rootFinding.js"
+import { useExample } from "../../hooks/useExample.js"
 
 const FalsePosition = () => {
   const [xl, setXl] = useState()
@@ -30,6 +32,16 @@ const FalsePosition = () => {
       setResult(r)
     } catch (err) { setErrorMsg(err.message) }
   }
+
+  const { handleExample } = useExample(falsePositionExample, {
+    setErrorMsg,
+    fields: {
+      xl: setXl,
+      xr: setXr,
+      tolerance: setTolerance,
+      equation: setEquation
+    }
+  });
 
   const falsePositionColumns = [
     { id: 'iteration', label: 'Iteration' },
@@ -75,6 +87,8 @@ const FalsePosition = () => {
 
             <div className="mt-6 text-center">
               <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded" onClick={handleCalculate}>Calculate</button>
+              <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded ml-4" onClick={handleExample}>Example</button>
+            
             </div>
 
             {result && (

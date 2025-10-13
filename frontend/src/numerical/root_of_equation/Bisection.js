@@ -33,10 +33,6 @@ export default class BisectionJS {
 
     let fxl = this.evaluate(xl);
     let fxr = this.evaluate(xr);
-    if (fxl * fxr > 0) {
-      throw new Error('f(xl) and f(xr) must have opposite signs.');
-    }
-
     let prevXm = null;
 
     do {

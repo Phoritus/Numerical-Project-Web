@@ -6,6 +6,8 @@ import { InputNumber, Input, Alert } from 'antd'
 import SecantJS from '../../numerical/root_of_equation/Secant.js'
 import DataTable from '../../components/DataTable.jsx'
 import PlotSecant from '../../components/GraphSecant.jsx'
+import { secantExample } from '../../numerical/examples/rootFinding.js'
+import { useExample } from '../../hooks/useExample.js'
 
 const Secant = () => {
 
@@ -25,6 +27,15 @@ const Secant = () => {
       setErrorMsg(error.message)
     }
   }
+  const { handleExample } = useExample(secantExample, {
+    setErrorMsg,
+    fields: {
+      x0: setx0,
+      x1: setx1,
+      tolerance: setTolerance,
+      equation: setEquation
+    }
+  });
 
   const secantColumns = [
     { id: 'iteration', label: 'Iteration' },
@@ -69,6 +80,10 @@ const Secant = () => {
             <div className='mt-6 flex justify-center'>
               <button type='button' onClick={handleSubmit} className='bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer'>
                 Calculate
+              </button>
+
+              <button type='button' onClick={handleExample} className='bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer ml-4'>
+                Example
               </button>
             </div>
             {result && (<div className='mt-6 text-sm text-blue-200'> <p className='text-xl'> Root : <span className='font-semibold text-white text-[19px]'>{result.root.toFixed(10)}</span> </p> <p className='text-xl'> Iterations: <span className='font-semibold text-white text-[19px]'>{result.iterations}</span> </p> </div>)}

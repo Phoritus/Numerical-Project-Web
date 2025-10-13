@@ -4,6 +4,8 @@ import { InputNumber, Input, Alert } from "antd"
 import NewtonRaphsonJS from '../../numerical/root_of_equation/NewtonRaphson.js'
 import DataTable from '../../components/DataTable.jsx'
 import PlotTangent from "../../components/GraphTangent.jsx"
+import { newtonRaphsonExample } from '../../numerical/examples/rootFinding.js'
+import { useExample } from '../../hooks/useExample.js'
 
 const NewtonRaphson = () => {
 
@@ -33,6 +35,15 @@ const NewtonRaphson = () => {
       setErrorMsg("Error calculating root")
     }
   }
+
+  const { handleExample } = useExample(newtonRaphsonExample, {
+    setErrorMsg,
+    fields: {
+      x0: setx0,
+      tolerance: setTolerance,
+      equation: setEquation
+    }
+  });
 
   const newTonRaphsonColumns = [
     { id: 'iteration', label: 'Iteration' },
@@ -80,6 +91,10 @@ const NewtonRaphson = () => {
             <div className='mt-6 flex justify-center'>
               <button type='button' onClick={handleCalculate} className='bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer'>
                 Calculate
+              </button>
+
+              <button type='button' onClick={handleExample} className='bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer ml-4'>
+                Example
               </button>
             </div>
 

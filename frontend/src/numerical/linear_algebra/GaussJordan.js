@@ -52,6 +52,6 @@ let testMatrixA = [
   [-2, 1, 2]
 ];
 
-let testMatrixB = [8, -11, -3];
-let test = new GaussJordan(testMatrixA, testMatrixB);
-console.log(test.calculate());
+// let testMatrixB = [8, -11, -3];
+// let test = new GaussJordan(testMatrixA, testMatrixB);
+// console.log(test.calculate());

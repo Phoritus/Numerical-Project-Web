@@ -50,10 +50,9 @@ class PlotTangent extends React.Component {
         x: history.map((p) => p.xCurrent),
         y: history.map((p) => p.fxCurrent),
         type: "scatter",
-        mode: "markers+text",
+        mode: "markers",
         name: "Iterations",
         marker: { color: "black", size: 5 },
-        text: history.map((p, i) => `x${i}`),
         textposition: "top center",
       },
       // Tangent lines for each iteration

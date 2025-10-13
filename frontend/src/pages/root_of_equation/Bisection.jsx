@@ -4,6 +4,8 @@ import { InputNumber, Input, Alert } from 'antd'
 import BisectionJS from '../../numerical/root_of_equation/Bisection.js'
 import DataTable from '../../components/DataTable.jsx'
 import PlotWithTailwind from '../../components/Graph.jsx'
+import { useExample } from '../../hooks/useExample.js'
+import { bisectionExample } from '../../numerical/examples/rootFinding.js'
 
 const Bisection = () => {
   const [xl, setXl] = useState()
@@ -31,6 +33,16 @@ const Bisection = () => {
       setResult(r)
     } catch (err) { setErrorMsg(err.message) }
   }
+
+  const { handleExample } = useExample(bisectionExample, {
+    setErrorMsg,
+    fields: {
+      xl: setXl,
+      xr: setXr,
+      tolerance: setTolerance,
+      equation: setEquation
+    }
+  })
 
   const bisectionColumns = [
     { id: 'iteration', label: 'Iteration' },
@@ -71,9 +83,13 @@ const Bisection = () => {
                 <Input style={{ width: '100%' }} placeholder='e.g. x^12 - 1265256' value={equation} onChange={(e) => setEquation(e.target.value)} />
               </div>
             </div>
-            <div className='mt-6 flex justify-center'>
+            <div className='mt-6 flex justify-center gap-5'>
               <button type='button' onClick={handleCalculate} className='bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer'>
                 Calculate
+              </button>
+
+              <button className='ml-4 bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer' type='button' onClick={handleExample}>
+                Example
               </button>
             </div>
 
@@ -89,10 +105,10 @@ const Bisection = () => {
                 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm min-h-[400px]'>
           <h2 className='text-2xl font-semibold mb-4'>Graph</h2>
           <PlotWithTailwind
-              dataX={result?.history.map(p => p.xm)}
-              dataY={result?.history.map(p => p.fxm)}
-              graphName='Bisection Method Convergence'
-            />
+            dataX={result?.history.map(p => p.xm)}
+            dataY={result?.history.map(p => p.fxm)}
+            graphName='Bisection Method Convergence'
+          />
         </div>
 
 
