@@ -7,10 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "seed": "npm run seed:all",
-    "seed:dropdb": "node seed/dropdb.js",
-    "seed:root": "node seed/rootFinding.js",
-    "seed:linear": "node seed/linearAlgebra.js",
-    "seed:all": "npm run seed:dropdb && npm run seed:root && npm run seed:linear"
+    "seed:linear": "node seed/linearAlgebra.js"
   },
   "keywords": ["numerical", "methods", "api", "express", "mongodb"],
   "author": "",

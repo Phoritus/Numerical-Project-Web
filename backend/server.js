@@ -6,8 +6,6 @@ const connectDB = require('./config/db');
 const corsOptions = require('./config/corOption');
 
 const app = express();
-const PORT = process.env.PORT
-
 // Connect to MongoDB
 connectDB();
 
@@ -26,10 +24,9 @@ app.get('/', (req, res) => {
 });
 
 // Root Finding API Routes
-app.use('/api/root-finding', require('./routes/rootFinding'));
-
+app.use('/root-finding', require('./routes/rootFinding'));
 // Linear Algebra Routes
-app.use('/api/linear-algebra', require('./routes/linearAlgebra'));
+app.use('/linear-algebra', require('./routes/linearAlgebra'));
 
 // Error handling middleware
 app.use((err, res) => {

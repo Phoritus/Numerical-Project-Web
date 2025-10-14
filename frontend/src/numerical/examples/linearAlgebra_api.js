@@ -26,3 +26,28 @@ export const matrixInversionExample = async (id) => {
   const { data } = await axios.get(`${API_URL}/matrix-inversion/${id}`);
   return data;
 };
+
+export const luDecompositionExample = async (id) => {
+  const { data } = await axios.get(`${API_URL}/lu-decomposition/${id}`);
+  return data;
+};
+
+export const choleskyExample = async (id) => {
+  const { data } = await axios.get(`${API_URL}/cholesky-decomposition/${id}`);
+  return data;
+};
+
+export const jacobiExample = async (id) => {
+  const { data } = await axios.get(`${API_URL}/jacobi-iteration/${id}`);
+  return data;
+};
+
+export const gaussSeidelExample = async (id) => {
+  const { data } = await axios.get(`${API_URL}/gauss-seidel/${id}`);
+  return data;
+};
+
+export const conjugateGradientExample = async (id) => {
+  const { data } = await axios.get(`${API_URL}/conjugate-gradient/${id}`);
+  return data;
+};

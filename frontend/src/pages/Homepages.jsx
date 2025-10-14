@@ -1,4 +1,3 @@
-import React from 'react'
 import NavbarMain from '../components/Navbar'
 import Dropdown from '../components/all_dropdown/Dropdown'
 import DropLinearSystem from '../components/all_dropdown/DropLinearSystem'

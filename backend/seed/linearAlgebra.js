@@ -40,6 +40,12 @@ const rawData = [
   { method: 'lu-decomposition', matrixSize: 4, matrixA: [[1, 2, -1, -4], [2, 3, 3, 3], [4, 5, -2, 2], [3, 4, 1, 1]], vectorB: [3, 15, 7, 8] },
   { method: 'lu-decomposition', matrixSize: 6, matrixA: [[2, -1, 0, 0, 0, 0], [-1, 2, -1, 0, 0, 0], [0, -1, 2, -1, 0, 0], [0, 0, -1, 2, -1, 0], [0, 0, 0, -1, 2, -1], [0, 0, 0, 0, -1, 2]], vectorB: [1, 0, 0, 0, 0, 1] },
 
+  // Cholesky Decomposition
+  { method: 'cholesky-decomposition', matrixSize: 2, matrixA: [[4, 2], [2, 3]], vectorB: [10, 13] },
+  { method: 'cholesky-decomposition', matrixSize: 3, matrixA: [[6, 15, 55], [15, 55, 225], [55, 225, 979]], vectorB: [76, 295, 1259] },
+  { method: 'cholesky-decomposition', matrixSize: 3, matrixA: [[25, 15, -5], [15, 18, 0], [-5, 0, 11]], vectorB: [350, 400, 200] },
+  { method: 'cholesky-decomposition', matrixSize: 4, matrixA: [[18, 22, 54, 42], [22, 70, 86, 62], [54, 86, 174, 134], [42, 62, 134, 106]], vectorB: [200, 300, 400, 500] },
+
   // Jacobi Iteration
   { method: 'jacobi-iteration', matrixSize: 2, matrixA: [[4, -1], [2, 3]], vectorB: [3, 15], initialGuess: [10, -5], tolerance: 0.000001 },
   { method: 'jacobi-iteration', matrixSize: 3, matrixA: [[10, -1, 2], [-1, 11, -1], [2, -1, 10]], vectorB: [6, 25, -11], initialGuess: [5, -5, 5], tolerance: 0.000001 },

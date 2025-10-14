@@ -12,6 +12,10 @@ import GaussElimination from './pages/linear_system/GaussElimination.jsx'
 import GaussJordan from './pages/linear_system/GaussJordan.jsx'
 import MatrixInversion from './pages/linear_system/MatrixInversion.jsx'
 import LUDecompostionPage from './pages/linear_system/LUDecompostion.jsx'
+import Jacobi from './pages/linear_system/Jacobi.jsx'
+import Siedal from './pages/linear_system/Siedal.jsx'
+import Conjugate from './pages/linear_system/Conjugate.jsx'
+import Cholesky from './pages/linear_system/Cholesky.jsx'
 
 const App = () => {
   return (
@@ -27,6 +31,10 @@ const App = () => {
       <Route path="/linear-system/gauss-elimination" element={<GaussElimination />} />
       <Route path="/linear-system/gauss-jordan" element={<GaussJordan />} />
       <Route path="/linear-system/matrix-inversion" element={<MatrixInversion />} />
+      <Route path="/linear-system/jacobi-iteration" element={<Jacobi />} />
+      <Route path="/linear-system/gauss-seidel" element={<Siedal />} />
+      <Route path="/linear-system/cholesky" element={<Cholesky />} />
+      <Route path="/linear-system/conjugate-gradient" element={<Conjugate />} />
       <Route path="/linear-system/lu-decomposition" element={<LUDecompostionPage />} />
     </Routes>
   )

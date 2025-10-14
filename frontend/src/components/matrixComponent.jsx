@@ -4,6 +4,7 @@ import { InputNumber } from 'antd';
 import { BiReset } from 'react-icons/bi';
 import Spinner from './Spinner';
 import { useExample } from '../hooks/useExample';
+import { parseMatrix, buildEmptyMatrix, buildEmptyVector, disabledMatrix } from '../../public/MatrixExperi';
 
 class MatrixComponentClass extends React.Component {
   state = {
@@ -14,9 +15,6 @@ class MatrixComponentClass extends React.Component {
     formVersion: 0,
     isCalculating: false
   };
-
-  buildEmptyMatrix = (n) => Array(n).fill(null).map(() => Array(n).fill(null));
-  buildEmptyVector = (n) => Array(n).fill(null);
 
   handleMatrixSizeChange = (value) => {
     const newSize = value || 3;
@@ -39,8 +37,8 @@ class MatrixComponentClass extends React.Component {
 
   handleReset = () => {
     this.setState(prev => ({
-      matrixA: this.buildEmptyMatrix(prev.matrixSize),
-      vectorB: this.buildEmptyVector(prev.matrixSize),
+      matrixA: buildEmptyMatrix(prev.matrixSize),
+      vectorB: buildEmptyVector(prev.matrixSize),
       solution: null,
       formVersion: prev.formVersion + 1
     }));
@@ -57,13 +55,6 @@ class MatrixComponentClass extends React.Component {
     this.setState({ isCalculating: true, solution: null }, () => {
       try {
         const { matrixA, vectorB } = this.state;
-        const parseMatrix = (arr, label) => arr.map(row => 
-          (Array.isArray(row) ? row : [row]).map(val => {
-            const num = parseFloat(val);
-            if (isNaN(num)) throw new Error(`All entries in ${label} must be valid numbers.`);
-            return num;
-          })
-        );
         const parsedA = parseMatrix(matrixA, 'matrix A');
         const parsedB = parseMatrix(vectorB, 'vector B').flat();
         const solver = new this.props.solverClass(parsedA, parsedB);
@@ -77,7 +68,6 @@ class MatrixComponentClass extends React.Component {
 
   renderMatrixInputs = (label, data, isMatrix) => {
     const { matrixSize, formVersion } = this.state;
-    const inputClass = 'w-full px-3 py-3 bg-blue-950/30 border border-blue-700/30 rounded-lg text-white text-center focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-white/50';
     return (
       <div className='flex flex-col items-center'>
         <div className='text-lg font-semibold mb-2'>{label}</div>
@@ -86,7 +76,7 @@ class MatrixComponentClass extends React.Component {
             ? data.map((row, i) => row.map((value, j) => (
                 <input
                   key={`${label}${formVersion}-${i}-${j}`}
-                  className={inputClass}
+                  className='matrix-input'
                   value={value ?? ''}
                   onChange={(e) => this.updateCell('matrixA', i, j, e.target.value)}
                   placeholder={`a${i + 1}${j + 1}`}
@@ -96,7 +86,7 @@ class MatrixComponentClass extends React.Component {
             : data.map((value, i) => (
                 <input
                   key={`${label}${formVersion}-${i}`}
-                  className={inputClass}
+                  className='matrix-input'
                   value={value ?? ''}
                   onChange={(e) => this.updateCell('vectorB', i, null, e.target.value)}
                   placeholder={`b${i + 1}`}
@@ -105,13 +95,12 @@ class MatrixComponentClass extends React.Component {
               ))}
         </div>
       </div>
-    );
+      );
   };
 
   render() {
     const { matrixSize, matrixA, vectorB, solution, isCalculating } = this.state;
     const { LatexResultComponent, title = 'Matrix solver' } = this.props;
-    const btnClass = 'bg-blue-600 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed';
     
     return (
       <div className='text-white'>
@@ -119,18 +108,18 @@ class MatrixComponentClass extends React.Component {
         <div className='min-h-screen bg-gradient-to-b from-blue-900 to-black py-[90px]'>
           <div className='container mx-auto'>
             <h1 className='text-4xl font-bold mb-6'><span className='text-gradient'>{title}</span></h1>
-            <div className='mx-auto max-w-md rounded-xl border border-blue-700/40 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm'>
-              <label className='text-sm text-blue-200'>Matrix Size (n x n)</label>
-              <div className='flex items-center gap-3 mt-2'>
+            <div className='matrix-panel'>
+              <label className='matrix-label'>Matrix Size (n x n)</label>
+              <div className='matrix-actions'>
                 <InputNumber rootClassName='tw-input-number' min={2} max={50} placeholder='e.g. 3' value={matrixSize} onChange={this.handleMatrixSizeChange} changeOnWheel />
-                <button onClick={this.handleReset} className='tw-button !bg-red-600 hover:!bg-red-700 px-3 py-2 text-xl rounded-lg cursor-pointer transition-colors'>
+                <button onClick={this.handleReset} className='btnError'>
                   <BiReset size={20} />
                 </button>
-                <button onClick={this.handleCalculate} disabled={isCalculating} className={`${btnClass} ${!isCalculating ? 'hover:bg-blue-500' : ''}`}>
+                <button onClick={this.handleCalculate} disabled={isCalculating} className={`btnCalculate ${!isCalculating ? 'hover:bg-blue-500' : ''}`}>
                   {isCalculating ? 'Calculating…' : 'Calculate'}
                 </button>
 
-                <button onClick={this.handleExample} className='bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer'>
+                <button onClick={this.handleExample} className='btnExample'>
                   Example
                 </button>
               </div>
@@ -140,15 +129,13 @@ class MatrixComponentClass extends React.Component {
               <div className='flex flex-col items-center'>
                 <div className='text-lg font-semibold mb-2'>{'{x}'}</div>
                 <div className='grid gap-3'>
-                  {Array(matrixSize).fill(null).map((_, i) => (
-                    <input key={`x${i}`} className='w-full px-3 py-3 bg-blue-950/10 border border-blue-700/10 rounded-lg text-center placeholder-gray-600 cursor-not-allowed' placeholder={`x${i + 1}`} disabled style={{ width: 80, height: 80 }} />
-                  ))}
+                  {disabledMatrix(matrixSize)}
                 </div>
               </div>
               <div className='text-3xl font-semibold mt-8'> = </div>
               {this.renderMatrixInputs('{B}', vectorB, false)}
             </div>
-            <div className='mx-auto mt-10 max-w-4xl rounded-xl border border-blue-700/40 bg-blue-900/30 p-6 shadow-lg backdrop-blur-sm'>
+            <div className='matrix-result-panel'>
               <h2 className='text-2xl font-semibold mb-10'>Result</h2>
               {isCalculating && <div className='flex justify-center items-center h-40'><Spinner /></div>}
               {!isCalculating && solution && <LatexResultComponent solution={solution} />}

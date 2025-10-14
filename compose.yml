@@ -4,7 +4,6 @@ services:
     ports:
       - "5173:5173"
     environment:
-      # Frontend calls backend via this base URL (set in .env)
       VITE_API_URL: ${VITE_API_URL}
     develop:
       watch:
@@ -15,17 +14,3 @@ services:
         - path: ./frontend
           target: /app
           action: sync
-  # One-off seeding job that uses the backend image
-  # seed:
-  #   build: ./backend
-  #   environment:
-  #     MONGODB_URI: MONGODB_URI
-  #   command: npm run seed:all
-  #   restart: "no"
-
-  # db:
-  #   image: mongo:latest
-  #   ports:
-  #     - "27017:27017"
-  #   volumes:
-  #     - ./mongo-data:/data/db

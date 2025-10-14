@@ -15,6 +15,7 @@ const linearAlgebraSchema = new mongoose.Schema({
       'gauss-jordan',
       'matrix-inversion',
       'lu-decomposition',
+      'cholesky-decomposition',
       'jacobi-iteration',
       'gauss-seidel',
       'conjugate-gradient'
