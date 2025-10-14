@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createNavigatingRenderItem } from '../dropdown/renderers';
 import DropdownBase from '../dropdown/DropdownBase';
-import { sec } from 'mathjs';
 
 // Utility: build a level map for keys so we can keep 1 open per level
 const buildLevelMap = (items, level = 1, map = {}) => {

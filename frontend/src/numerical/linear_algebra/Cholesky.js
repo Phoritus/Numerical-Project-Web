@@ -43,12 +43,12 @@ export default class Cholesky {
   }
 }
 
-const testMatrixA = [
-  [4, 12, -16],
-  [12, 37, -43],
-  [-16, -43, 98]
-];
+// const testMatrixA = [
+//   [4, 12, -16],
+//   [12, 37, -43],
+//   [-16, -43, 98]
+// ];
 
-const testMatrixB = [1, 2, 3];
-const test = new Cholesky(testMatrixA, testMatrixB);
-console.log(test.calculate());
+// const testMatrixB = [1, 2, 3];
+// const test = new Cholesky(testMatrixA, testMatrixB);
+// console.log(test.calculate());

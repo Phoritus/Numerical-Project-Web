@@ -13,10 +13,11 @@ const DropLinearSystem = () => {
         { key: 'gauss_jordan', label: 'Gauss-Jordan Elimination' },
         { key: 'matrix_inversion', label: 'Matrix Inversion Method' },
         { key: 'lu_decomposition', label: 'LU Decomposition' },
+        { key: 'cholesky', label: 'Cholesky Decomposition' },
         { key: 'jacobi', label: 'Jacobi Iteration' },
         { key: 'gauss_seidel', label: 'Gauss-Seidel Iteration' },
-        { key: 'conjugate_gradient', label: 'Conjugate Gradient Method' },
-        { key: 'cholesky', label: 'Cholesky Decomposition' },
+        { key: 'conjugate_gradient', label: 'Conjugate Gradient Method' }
+        
       ]
     }
   ]
@@ -27,10 +28,11 @@ const DropLinearSystem = () => {
     gauss_jordan: '/linear-system/gauss-jordan',
     matrix_inversion: '/linear-system/matrix-inversion',
     lu_decomposition: '/linear-system/lu-decomposition',
+    cholesky: '/linear-system/cholesky-decomposition',
     jacobi: '/linear-system/jacobi-iteration',
     gauss_seidel: '/linear-system/gauss-seidel',
-    conjugate_gradient: '/linear-system/conjugate-gradient',
-    cholesky: '/linear-system/cholesky-decomposition',
+    conjugate_gradient: '/linear-system/conjugate-gradient'
+    
   }
   const enhancedRenderItem = createNavigatingRenderItem({ routeMap, useLink: true });
 
