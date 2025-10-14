@@ -14,7 +14,7 @@ router.get('/:methodName/:Id', async (req, res) => {
       });
     }
 
-    const validMethods = ['cramer', 'gauss-elimination', 'gauss-jordan', 'matrix-inversion', 'lu-decomposition', 'Cholesky-decomposition', 'jacobi-iteration', 'gauss-seidel', 'conjugate-gradient'];
+    const validMethods = ['cramer', 'gauss-elimination', 'gauss-jordan', 'matrix-inversion', 'lu-decomposition', 'cholesky-decomposition', 'jacobi-iteration', 'gauss-seidel', 'conjugate-gradient'];
     if (!validMethods.includes(methodName)) {
       return res.status(400).json({
         success: false,
