@@ -7,7 +7,7 @@ const Cholesky = () => {
     <MatrixComponent
       title="Cholesky Decomposition Method"
       solverClass={CholeskySolver}
-      onExample={choleskyExample}
+      exampleApiFunction={choleskyExample}
     />
   )
 }

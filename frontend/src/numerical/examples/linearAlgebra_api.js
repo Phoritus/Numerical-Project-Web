@@ -5,7 +5,7 @@ if (!base) {
   throw new Error('VITE_API_URL is required but not set');
 }
 const API_BASE = base.replace(/\/$/, '');
-const API_URL = `${API_BASE}/api/linear-algebra`;
+const API_URL = `${API_BASE}/linear-algebra`;
 
 export const cramerExample = async (id) => {
   const { data } = await axios.get(`${API_URL}/cramer/${id}`);

@@ -119,7 +119,7 @@ export const Graphical = () => {
           <DataTable
             columns={graphicalColumns}
             rows={tableRows}
-            getRowId={r => r.iteration}
+            getRowId={(r, i) => (r && r.iteration != null ? r.iteration : i)}
             dense
             striped
             maxHeight={750}

@@ -33,7 +33,7 @@ const App = () => {
       <Route path="/linear-system/matrix-inversion" element={<MatrixInversion />} />
       <Route path="/linear-system/jacobi-iteration" element={<Jacobi />} />
       <Route path="/linear-system/gauss-seidel" element={<Siedal />} />
-      <Route path="/linear-system/cholesky" element={<Cholesky />} />
+      <Route path="/linear-system/cholesky-decomposition" element={<Cholesky />} />
       <Route path="/linear-system/conjugate-gradient" element={<Conjugate />} />
       <Route path="/linear-system/lu-decomposition" element={<LUDecompostionPage />} />
     </Routes>
