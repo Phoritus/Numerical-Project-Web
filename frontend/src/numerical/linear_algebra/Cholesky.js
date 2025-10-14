@@ -39,7 +39,7 @@ export default class Cholesky {
       X[i] = (y[i] - L[i].slice(i + 1).reduce((acc, _, k) => acc + L[i][k] * X[k], 0)) / L[i][i];
     }
 
-    return X;
+    return { vector: X};
   }
 }
 
