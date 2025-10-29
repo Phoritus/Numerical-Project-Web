@@ -89,7 +89,7 @@ const Bisection = () => {
               </button>
 
               <button className='ml-4 bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer' type='button' onClick={handleExample}>
-                Example <div><Alert type='info' message='This is an example alert' showIcon /></div>
+                Example
               </button>
             </div>
 
