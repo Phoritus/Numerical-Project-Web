@@ -55,15 +55,15 @@ export default class ConjugateGradient {
   }
 }
 
-let testMatrixA = [
-  [5, 2, 0, 0],
-  [2, 5, 2, 0],
-  [0, 2, 5, 2],
-  [0, 0, 2, 5]
-];
+// let testMatrixA = [
+//   [5, 2, 0, 0],
+//   [2, 5, 2, 0],
+//   [0, 2, 5, 2],
+//   [0, 0, 2, 5]
+// ];
 
-let testMatrixB = [12, 17, 14, 7];
-let initialGuess = [0, 0, 0, 0];
-let tolerance = 0.0001;
-let test = new ConjugateGradient(testMatrixA, testMatrixB, initialGuess, tolerance);
-console.log(test.calculate());
+// let testMatrixB = [12, 17, 14, 7];
+// let initialGuess = [0, 0, 0, 0];
+// let tolerance = 0.0001;
+// let test = new ConjugateGradient(testMatrixA, testMatrixB, initialGuess, tolerance);
+// console.log(test.calculate());

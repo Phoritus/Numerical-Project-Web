@@ -4,10 +4,9 @@
   "description": "Backend API for Numerical Methods application",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "concurrently \"node server.js\" \"npm run seed\"",
     "dev": "nodemon server.js",
-    "seed": "npm run seed:all",
-    "seed:linear": "node seed/linearAlgebra.js"
+    "seed": "node seed/linearAlgebra.js && node seed/rootFinding.js"
   },
   "keywords": ["numerical", "methods", "api", "express", "mongodb"],
   "author": "",
@@ -19,6 +18,7 @@
     "mongoose": "^8.9.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "concurrently": "^8.2.0"
   }
 }
