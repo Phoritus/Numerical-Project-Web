@@ -8,7 +8,13 @@
     "dev": "nodemon server.js",
     "seed": "node seed/linearAlgebra.js && node seed/rootFinding.js"
   },
-  "keywords": ["numerical", "methods", "api", "express", "mongodb"],
+  "keywords": [
+    "numerical",
+    "methods",
+    "api",
+    "express",
+    "mongodb"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -18,7 +24,7 @@
     "mongoose": "^8.9.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9",
-    "concurrently": "^8.2.0"
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.9"
   }
 }
