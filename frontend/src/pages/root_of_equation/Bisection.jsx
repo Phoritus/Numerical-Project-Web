@@ -6,6 +6,7 @@ import DataTable from '../../components/DataTable.jsx'
 import PlotWithTailwind from '../../components/Graph.jsx'
 import { useExample } from '../../hooks/useExample.js'
 import { bisectionExample } from '../../numerical/examples/rootFinding.js'
+import LoadingClock from '../../components/LoadingClock.jsx'
 
 const Bisection = () => {
   const [xl, setXl] = useState()
@@ -34,7 +35,7 @@ const Bisection = () => {
     } catch (err) { setErrorMsg(err.message) }
   }
 
-  const { handleExample } = useExample(bisectionExample, {
+  const { handleExample, loading: exampleLoading } = useExample(bisectionExample, {
     setErrorMsg,
     fields: {
       xl: setXl,
@@ -88,8 +89,8 @@ const Bisection = () => {
                 Calculate
               </button>
 
-              <button className='ml-4 bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer' type='button' onClick={handleExample}>
-                Example
+              <button className={`ml-4 ${exampleLoading ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-500 cursor-pointer'} text-white font-semibold px-6 py-2 rounded-md transition-colors shadow flex items-center gap-2`} type='button' onClick={handleExample} disabled={exampleLoading}>
+                {exampleLoading ? <><LoadingClock size={20} /> Loading...</> : 'Example'}
               </button>
             </div>
 

@@ -12,10 +12,13 @@ import { useState } from 'react';
 export const useExample = (apiFunction, setters) => {
   const [loading, setLoading] = useState(false);
   const componentRef = setters.ref;
+  const cooldownMs = 2000; // 2-second cooldown to prevent spam
 
   const handleExample = () => {
+    if (loading) return; // guard against rapid clicks
     const id = Math.floor(Math.random() * 5) + 1;
     setLoading(true);
+    const startTime = Date.now();
     
     apiFunction(id)
       .then(response => {
@@ -70,7 +73,9 @@ export const useExample = (apiFunction, setters) => {
         }
       })
       .finally(() => {
-        setLoading(false);
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, cooldownMs - elapsed);
+        setTimeout(() => setLoading(false), remaining);
       });
   };
 

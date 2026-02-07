@@ -3,6 +3,7 @@ import NavbarMain from './Navbar'
 import { InputNumber } from 'antd'
 import { BiReset } from 'react-icons/bi'
 import Spinner from './Spinner'
+import LoadingClock from './LoadingClock.jsx'
 import { parseMatrix, buildEmptyMatrix, buildEmptyVector, disabledMatrix, renderMatrixHorizontal } from '../../public/MatrixExperi'
 
 export default class MatrixHaveInit extends React.Component {
@@ -121,8 +122,8 @@ export default class MatrixHaveInit extends React.Component {
                   {isCalculating ? 'Calculating…' : 'Calculate'}
                 </button>
                 {this.props.onExample && (
-                  <button onClick={this.handleExample} className='btnExample'>
-                    Example
+                  <button onClick={this.handleExample} disabled={this.props.exampleLoading} className={`btnExample flex items-center gap-2 ${this.props.exampleLoading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                    {this.props.exampleLoading ? <><LoadingClock size={20} /> Loading...</> : 'Example'}
                   </button>
                 )}
               </div>

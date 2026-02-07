@@ -10,7 +10,7 @@ const Jacobi = () => {
   const matrixRef = useRef(null);
 
   // Configure example loader to populate fields on the class component
-  const { handleExample } = useExample(jacobiExample, {
+  const { handleExample, loading: exampleLoading } = useExample(jacobiExample, {
     ref: matrixRef,
     // Keys indicate which fields from API to set on the class component
     fields: {
@@ -28,6 +28,7 @@ const Jacobi = () => {
       solverClass={JacobiSolver}
       LatexResultComponent={JacobiLatexResult}
       onExample={handleExample}
+      exampleLoading={exampleLoading}
     />
   );
 };

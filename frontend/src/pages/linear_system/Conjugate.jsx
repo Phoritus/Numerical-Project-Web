@@ -7,7 +7,7 @@ import { useRef } from 'react';
 
 const Conjugate = () => {
   const matrixRef = useRef(null);
-  const { handleExample } = useExample(conjugateGradientExample, {
+  const { handleExample, loading: exampleLoading } = useExample(conjugateGradientExample, {
     ref: matrixRef,
     fields: {
       matrixSize: true,
@@ -24,6 +24,7 @@ const Conjugate = () => {
       solverClass={ConjugateSolver}
       LatexResultComponent={ConjugateLatexResult}
       onExample={handleExample}
+      exampleLoading={exampleLoading}
     />
   )
 }

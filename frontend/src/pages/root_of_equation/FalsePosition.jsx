@@ -6,6 +6,7 @@ import DataTable from "../../components/DataTable.jsx"
 import PlotWithTailwind from "../../components/Graph.jsx"
 import { falsePositionExample } from "../../numerical/examples/rootFinding.js"
 import { useExample } from "../../hooks/useExample.js"
+import LoadingClock from '../../components/LoadingClock.jsx'
 
 const FalsePosition = () => {
   const [xl, setXl] = useState()
@@ -33,7 +34,7 @@ const FalsePosition = () => {
     } catch (err) { setErrorMsg(err.message) }
   }
 
-  const { handleExample } = useExample(falsePositionExample, {
+  const { handleExample, loading: exampleLoading } = useExample(falsePositionExample, {
     setErrorMsg,
     fields: {
       xl: setXl,
@@ -87,7 +88,7 @@ const FalsePosition = () => {
 
             <div className="mt-6 text-center">
               <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded" onClick={handleCalculate}>Calculate</button>
-              <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded ml-4" onClick={handleExample}>Example</button>
+              <button className={`${exampleLoading ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700 cursor-pointer'} text-white font-semibold py-2 px-4 rounded ml-4 inline-flex items-center gap-2`} onClick={handleExample} disabled={exampleLoading}>{exampleLoading ? <><LoadingClock size={20} /> Loading...</> : 'Example'}</button>
             
             </div>
 

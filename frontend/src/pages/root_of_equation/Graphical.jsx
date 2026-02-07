@@ -6,6 +6,7 @@ import DataTable from '../../components/DataTable.jsx'
 import PlotWithTailwind from '../../components/Graph.jsx'
 import { graphicalExample } from '../../numerical/examples/rootFinding.js'
 import { useExample } from '../../hooks/useExample.js'
+import LoadingClock from '../../components/LoadingClock.jsx'
 
 export const Graphical = () => {
   const [xl, setXl] = useState()
@@ -16,7 +17,7 @@ export const Graphical = () => {
   const [errorMsg, setErrorMsg] = useState(null)
 
   // Use custom hook for example fetching
-  const { handleExample } = useExample(graphicalExample, {
+  const { handleExample, loading: exampleLoading } = useExample(graphicalExample, {
     setErrorMsg,
     fields: {
       xl: setXl,
@@ -93,8 +94,8 @@ export const Graphical = () => {
                 Calculate
               </button>
 
-              <button type='button' onClick={handleExample} className='bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer'>
-                Example
+              <button type='button' onClick={handleExample} disabled={exampleLoading} className={`${exampleLoading ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-500 cursor-pointer'} text-white font-semibold px-6 py-2 rounded-md transition-colors shadow flex items-center gap-2`}>
+                {exampleLoading ? <><LoadingClock size={20} /> Loading...</> : 'Example'}
               </button>
             </div>
 

@@ -9,7 +9,7 @@ const Siedal = () => {
   
   const matrixRef = useRef(null);
   
-  const { handleExample} = useExample(gaussSeidelExample, {
+  const { handleExample, loading: exampleLoading } = useExample(gaussSeidelExample, {
     ref: matrixRef,
     fields: {
       matrixSize: true,
@@ -26,6 +26,7 @@ const Siedal = () => {
       solverClass={SiedalSolver}
       LatexResultComponent={JacobiLatexResult}
       onExample={handleExample}
+      exampleLoading={exampleLoading}
     />
   )
 }

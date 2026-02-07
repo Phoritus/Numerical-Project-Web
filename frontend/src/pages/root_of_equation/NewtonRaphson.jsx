@@ -6,6 +6,7 @@ import DataTable from '../../components/DataTable.jsx'
 import PlotTangent from "../../components/GraphTangent.jsx"
 import { newtonRaphsonExample } from '../../numerical/examples/rootFinding.js'
 import { useExample } from '../../hooks/useExample.js'
+import LoadingClock from '../../components/LoadingClock.jsx'
 
 const NewtonRaphson = () => {
 
@@ -36,7 +37,7 @@ const NewtonRaphson = () => {
     }
   }
 
-  const { handleExample } = useExample(newtonRaphsonExample, {
+  const { handleExample, loading: exampleLoading } = useExample(newtonRaphsonExample, {
     setErrorMsg,
     fields: {
       x0: setx0,
@@ -93,8 +94,8 @@ const NewtonRaphson = () => {
                 Calculate
               </button>
 
-              <button type='button' onClick={handleExample} className='bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer ml-4'>
-                Example
+              <button type='button' onClick={handleExample} disabled={exampleLoading} className={`${exampleLoading ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-500 cursor-pointer'} text-white font-semibold px-6 py-2 rounded-md transition-colors shadow ml-4 flex items-center gap-2`}>
+                {exampleLoading ? <><LoadingClock size={20} /> Loading...</> : 'Example'}
               </button>
             </div>
 

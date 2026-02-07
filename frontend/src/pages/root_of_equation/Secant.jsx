@@ -8,6 +8,7 @@ import DataTable from '../../components/DataTable.jsx'
 import PlotSecant from '../../components/GraphSecant.jsx'
 import { secantExample } from '../../numerical/examples/rootFinding.js'
 import { useExample } from '../../hooks/useExample.js'
+import LoadingClock from '../../components/LoadingClock.jsx'
 
 const Secant = () => {
 
@@ -27,7 +28,7 @@ const Secant = () => {
       setErrorMsg(error.message)
     }
   }
-  const { handleExample } = useExample(secantExample, {
+  const { handleExample, loading: exampleLoading } = useExample(secantExample, {
     setErrorMsg,
     fields: {
       x0: setx0,
@@ -82,8 +83,8 @@ const Secant = () => {
                 Calculate
               </button>
 
-              <button type='button' onClick={handleExample} className='bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-md transition-colors shadow cursor-pointer ml-4'>
-                Example
+              <button type='button' onClick={handleExample} disabled={exampleLoading} className={`${exampleLoading ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-500 cursor-pointer'} text-white font-semibold px-6 py-2 rounded-md transition-colors shadow ml-4 flex items-center gap-2`}>
+                {exampleLoading ? <><LoadingClock size={20} /> Loading...</> : 'Example'}
               </button>
             </div>
             {result && (<div className='mt-6 text-sm text-blue-200'> <p className='text-xl'> Root : <span className='font-semibold text-white text-[19px]'>{result.root.toFixed(10)}</span> </p> <p className='text-xl'> Iterations: <span className='font-semibold text-white text-[19px]'>{result.iterations}</span> </p> </div>)}
